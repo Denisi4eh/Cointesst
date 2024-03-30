@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Clicker</title>
+    <style>
+        button {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            font-size: 16px;
+            display: block;
+            margin: 250px auto 0 auto;
+            transform-origin: center;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        .coin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: top 1s, opacity 1s;
+            z-index: 1;
+            color: black; /* Добавлено для видимости текста */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;"><span id="count">0</span>₽</h1>
+    <button onclick="incrementCounter(event)">Click Me</button>
+
+    <script>
+        let counter = 0;
+
+        function incrementCounter(event) {
+            counter++;
+            document.getElementById("count").innerText = counter;
+
+            let coin = document.createElement("div");
+            coin.className = "coin";
+            coin.innerHTML = "+1₽";
+            coin.style.top = (event.clientY - 30) + "px";
+            coin.style.left = (event.clientX - 15) + "px";
+            document.body.appendChild(coin);
+
+            setTimeout(() => {
+                coin.style.top = "20%";
+                coin.style.opacity = "0";
+            }, 10);
+
+            setTimeout(() => {
+                coin.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
