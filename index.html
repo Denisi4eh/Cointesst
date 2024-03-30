@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Clicker</title>
+    <style>
+        body {
+            background-color: red;
+        }
+        .button-image {
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+            user-select: none;
+            outline: none;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            display: block;
+            margin: 250px auto 0 auto;
+            cursor: pointer;
+            background: url('button-image.png') center/cover;
+            transform-origin: center;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .button-image:active {
+            transform: scale(0.95);
+        }
+
+        .button-image:focus {
+            outline: none;
+        }
+
+        .coin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: top 1s, opacity 1s;
+            z-index: 1;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;"><span id="count">0</span>₽</h1>
+    <div class="button-image" onclick="incrementCounter(event)"></div>
+
+    <script>
+        let counter = 0;
+
+        function incrementCounter(event) {
+            counter++;
+            document.getElementById("count").innerText = counter;
+
+            let coin = document.createElement("div");
+            coin.className = "coin";
+            coin.innerHTML = "+1₽";
+            coin.style.top = (event.clientY - 30) + "px";
+            coin.style.left = (event.clientX - 15) + "px";
+            document.body.appendChild(coin);
+
+            setTimeout(() => {
+                coin.style.top = "20%";
+                coin.style.opacity = "0";
+            }, 10);
+
+            setTimeout(() => {
+                coin.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
